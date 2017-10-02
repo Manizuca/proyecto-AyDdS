@@ -22,6 +22,7 @@ app.use(logger('dev')); // log every request to the console
 
 app.set('view engine', 'mustache');
 app.set('views', path.join(__dirname, 'views'));
+app.set("layout", path.join(__dirname, 'views', 'layout'));
 app.engine('mustache', mustache());
 
 // required for passport

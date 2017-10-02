@@ -36,7 +36,6 @@ module.exports = function(app, passport) {
     app.use((err, req, res, next) => {
       var code = err.status || 500;
       res.status(code);
-      res.render('500.mustache', {code: code, message: err.message});
+      res.render('500', {code: code, errmsg: err.message, title: "Error " + code});
     });
 }
-
