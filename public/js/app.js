@@ -17,4 +17,6 @@ app.config(['$httpProvider',function($httpProvider) {
 }]); 
 
 app.controller('mainController', ($scope, $http, $timeout, $window, $location) => {
+    $scope.forms = { };
+    $scope.formdata = [ ];
 });

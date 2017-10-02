@@ -1,0 +1,192 @@
+{{=<% %>=}}
+<!DOCTYPE html>
+<html ng-app="decisions">
+  <head>
+    <title><%title%></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="/stylesheets/style.css" media="screen">
+    <link rel="stylesheet" href="/stylesheets/navbar.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js"></script>
+  </head>
+
+  <body ng-controller="mainController">
+    <div class="container">
+
+      <img src="/images/armada.png" width="150" alt="ARMADA DE CHILE">
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Toma de Decisiones</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Home</a></li>
+            </ul>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="/signup">Crear usuario</a></li>
+            </ul>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="/login">Iniciar sesion</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- show any messages that come back with flash -->
+      <% #message %>
+      <div class="alert alert-danger" role="alert">
+        <strong>Error!</strong> {{ message }}.
+      </div>
+      <% /message %>
+
+      <div class="panel panel-default" style="min-width: 540px;">
+
+        <div class="panel-heading">
+          <p><b>TITULO DE LA SALA</b></p>
+        </div>
+        <br>
+
+        <table class="table table-striped table-condensed">
+          <thead>
+            <tr>
+              <th>Escenario</th>
+              <th>Nombre</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>
+                <div>ESCENARIO 1</div>
+              </td>
+              <td><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#par1">Desplegar Escenario</button></td>
+            </tr>
+
+            <tr><td colspan="3" class="no_padding">
+              <div id="par1" class="collapse" aria-expanded="false" style="height: 0px;">
+
+                <ng-form name="forms.e1">
+                  <div>
+                    <h2>ESCENARIO SUMMARY</h2>
+
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th rowspan="2" width="72">Participante</th>
+                          <th colspan="17">Decisiones</th>
+                        </tr>
+                        <tr>
+                          <th width="72">1</th>
+                          <th width="72">2</th>
+                          <th width="72">3</th>
+                          <th width="72">4</th>
+                          <th width="72">5</th>
+                          <th width="72">6</th>
+                          <th width="72">7</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Tú</td>
+                          <td><input ng-model="form_data[1].d1" type="checkbox"></td>
+                          <td><input ng-model="form_data[1].d2" type="checkbox"></td>
+                          <td><input ng-model="form_data[1].d3" type="checkbox"></td>
+                          <td><input ng-model="form_data[1].d4" type="checkbox"></td>
+                          <td><input ng-model="form_data[1].d5" type="checkbox"></td>
+                          <td><input ng-model="form_data[1].d6" type="checkbox"></td>
+                          <td><input ng-model="form_data[1].d7" type="checkbox"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                  </div>
+                  <input class="btn btn-primary" value="Aceptar" type="submit">
+                </ng-form>
+
+              </div>
+            </td></tr>
+
+            <tr>
+              <th scope="row">2</th>
+              <td>
+                <div>ESCENARIO 2</div>
+              </td>
+              <td><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#par2">Desplegar Escenario</button></td>
+            </tr>
+
+            <tr><td colspan="3" class="no_padding">
+              <div id="par2" class="collapse" aria-expanded="false" style="height: 0px;">
+
+                <ng-form name="forms.e2">
+                  <div>
+                    <h2>ESCENARIO SUMMARY</h2>
+
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th rowspan="2" width="72">Participante</th>
+                          <th colspan="17">Decisiones</th>
+                        </tr>
+                        <tr>
+                          <th width="72">1</th>
+                          <th width="72">2</th>
+                          <th width="72">3</th>
+                          <th width="72">4</th>
+                          <th width="72">5</th>
+                          <th width="72">6</th>
+                          <th width="72">7</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Tú</td>
+                          <td><input ng-model="form_data[2].d1" type="checkbox"></td>
+                          <td><input ng-model="form_data[2].d2" type="checkbox"></td>
+                          <td><input ng-model="form_data[2].d3" type="checkbox"></td>
+                          <td><input ng-model="form_data[2].d4" type="checkbox"></td>
+                          <td><input ng-model="form_data[2].d5" type="checkbox"></td>
+                          <td><input ng-model="form_data[2].d6" type="checkbox"></td>
+                          <td><input ng-model="form_data[2].d7" type="checkbox"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                  </div>
+                  <input class="btn btn-primary" value="Aceptar" type="submit">
+                </ng-form>
+
+              </div>
+            </td></tr>
+
+          </tbody>
+        </table>
+
+      </div>
+
+    </div>
+    <footer>
+      <div class="footer-bottom">
+        <div class="container">
+          <p class="pull-left">Toma de Decisiones. © <a href="//www.armada.cl/">ARMADA DE CHILE 2017.</a></p>
+        </div>
+      </div>
+    </footer>
+
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.2/angular.min.js"></script>
+    <script type="text/javascript" src="/js/app.js"></script>
+  </body>
+</html>
