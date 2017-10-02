@@ -1,12 +1,17 @@
 //var apiRoutes = require('./api');
 var mainRoutes = require('./main');
-//var passportRoutes = require('./passport');
+var signup= require('./signup');
+var login= require('./login');
+var passportRoutes = require('./passport');
 var path = require('path');
 
 module.exports = function(app, passport) {
     app.use('/', mainRoutes);
 
-    //passportRoutes(app, passport);
+    app.use('/signup', signup);
+    app.use('/login', login);
+
+    passportRoutes(app, passport);
 
     //app.use('/api', apiRoutes);
 

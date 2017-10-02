@@ -10,14 +10,12 @@ var path         = require('path');
 var routes       = require('./server/router');
 var session      = require('express-session');
 
-//require('./server/config/passport')(passport); // pass passport for configuration
-
 var app = express();
 
 //Express
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
-//app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(logger('dev')); // log every request to the console
 
 app.set('view engine', 'mustache');
@@ -32,10 +30,13 @@ app.use(session({
 }));
 
 //CHANGE SESSION STORE FOR PRODUCTION
-//app.use(passport.initialize());
-//app.use(passport.session()); // persistent login sessions
-//app.use(flash()); // use connect-flash for flash messages stored in session
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 app.use(express.static('public'));
+
+require('./server/router/index.js')(app, passport); // load our routes and pass in our app and fully configured passport
+require('./server/config/passport')(passport); // pass passport for configuration
 
 //Routes
 models.sequelize.sync().then(function () {
