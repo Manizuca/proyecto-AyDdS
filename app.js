@@ -10,6 +10,8 @@ var path         = require('path');
 var routes       = require('./server/router');
 var session      = require('express-session');
 
+require('./server/config/passport')(passport); // pass passport for configuration
+
 var app = express();
 
 //Express
@@ -34,9 +36,6 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 app.use(express.static('public'));
-
-require('./server/router/index.js')(app, passport); // load our routes and pass in our app and fully configured passport
-require('./server/config/passport')(passport); // pass passport for configuration
 
 //Routes
 models.sequelize.sync().then(function () {
