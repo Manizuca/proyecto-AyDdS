@@ -3,6 +3,8 @@ var path      = require("path");
 var Sequelize = require('sequelize');
 
 var opts = {
+    dialect: 'mysql',
+    logging: false,
     define: {
         //prevent sequelize from pluralizing table names
         freezeTableName: true

@@ -10,7 +10,7 @@ var path         = require('path');
 var routes       = require('./server/router');
 var session      = require('express-session');
 
-require('./server/config/passport')(passport); // pass passport for configuration
+require('./server/config/passport')(passport, models.User); // pass passport for configuration
 
 var app = express();
 
