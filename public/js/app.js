@@ -1,4 +1,4 @@
-var app = angular.module('decisions', []);
+var app = angular.module('decisions', ['timer']);
 app.factory('homeInterceptor', function($q, $window) {
   return  {
     'response': function(res) {
@@ -19,4 +19,24 @@ app.config(['$httpProvider',function($httpProvider) {
 app.controller('mainController', ($scope, $http, $timeout, $window, $location) => {
     $scope.forms = { };
     $scope.formdata = [ ];
+    $scope.timerColor = {};
+    $scope.timerRunning = false;
+
+    $scope.startTimer = function (deadline) {
+        $scope.$broadcast('timer-set-countdown', deadline);
+        $scope.$broadcast('timer-start');
+        $scope.timerColor = {};
+        $scope.timerRunning = true;
+    };
+
+    $scope.stopTimer = function () {
+        $scope.$broadcast('timer-stop');
+        $scope.timerColor = {};
+        $scope.timerRunning = false;
+    };
+
+    $scope.$on('timer-stopped', function (event, data) {
+        $scope.timerColor.color = 'end';
+        $scope.timerRunning = false;
+    });
 });

@@ -123,3 +123,34 @@
         </table>
 
       </div>
+    </div>
+
+    <script type="text/javascript" src="/js/timer.js"></script>
+    <div class="right-side">
+
+      <timer class="panel panel-default super-timer">
+        <div class="panel-heading">
+          <h3 class="text-center">Timer</h3>
+        </div>
+        <div class="panel-body timer-body text-center">
+        <div class="bg-primary">
+          <span class="bg-info">{{hhours}}</span>
+          <div>H</div>
+        </div>
+        <div class="bg-primary">
+          <span class="bg-info">{{mminutes}}</span>
+          <div>M</div>
+        </div>
+        <div class="bg-primary">
+          <span class="bg-info">{{sseconds}}</span>
+          <div>S</div>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <div class="text-center">
+          <a id="restartButton" class="btn btn-warning" ng-click="resetTimer()"> Reset</a>
+          <a id="startButton" class="btn btn-primary" ng-click="startTimer(3)" ng-hide="timerRunning"> Start</a>
+          <a id="stopButton" class="btn btn-danger" ng-click="stopTimer()" ng-show="timerRunning"> Pause</a>
+        </div>
+      </div>
+      </timer>

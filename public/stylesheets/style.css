@@ -15,6 +15,30 @@ textarea {
   width: 540px;
   height: 90px;
 }
+.right-side  {
+  display: inline;
+  float: right;
+  width: 256px;
+}
+.super-timer{
+  position: fixed;
+  top: 80px;
+  right: 32px;
+  width: 224px;
+  padding: 8px;
+}
+.timer-body > div{
+  padding: 4px;
+  font-size: 140%;
+  border-radius: 8px;
+  display: inline-block;
+}
+.timer-body div > span{
+  color: black;
+  padding: 12px;
+  border-radius: 4px;
+  display: inline-block;
+}
 .second-button{
   float:right;
 }
