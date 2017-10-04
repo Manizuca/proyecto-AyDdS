@@ -73,14 +73,14 @@ angular.module('timer', [])
             }
 
             $scope.addSeconds = function (extraSeconds) {
+                if (!$scope.isRunning) {
+                    calculateTimeUnits();
+                }
                 $scope.countdown += extraSeconds;
-                $scope.$digest();
             };
 
             $scope.$on('timer-add-seconds', function (e, extraSeconds) {
-                $timeout(function () {
-                    $scope.addSeconds(extraSeconds);
-                });
+                $scope.addSeconds(extraSeconds);
             });
 
             calculateTimeUnits();
