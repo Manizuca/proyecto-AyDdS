@@ -39,6 +39,12 @@ textarea {
   border-radius: 4px;
   display: inline-block;
 }
+.end-timer > div{
+    color:red;
+}
+.end-timer div > span{
+    color:red;
+}
 .second-button{
   float:right;
 }

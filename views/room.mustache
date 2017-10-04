@@ -132,26 +132,26 @@
         <div class="panel-heading">
           <h3 class="text-center">Timer</h3>
         </div>
-        <div class="panel-body timer-body text-center">
-        <div class="bg-primary">
-          <span class="bg-info">{{hhours}}</span>
-          <div>H</div>
+        <div class="panel-body timer-body text-center" ng-class="timerColor">
+          <div class="bg-primary">
+            <span class="bg-info">{{hhours}}</span>
+            <div>H</div>
+          </div>
+          <div class="bg-primary">
+            <span class="bg-info">{{mminutes}}</span>
+            <div>M</div>
+          </div>
+          <div class="bg-primary">
+            <span class="bg-info">{{sseconds}}</span>
+            <div>S</div>
+          </div>
         </div>
-        <div class="bg-primary">
-          <span class="bg-info">{{mminutes}}</span>
-          <div>M</div>
+        <div class="panel-footer">
+          <div class="text-center">
+            <a id="resetButton" class="btn btn-warning" ng-click="resetTimer()"> Reset</a>
+            <a id="startButton" class="btn btn-primary" ng-click="startTimer()" ng-hide="isRunning"> Start</a>
+            <a id="stopButton" class="btn btn-danger" ng-click="stopTimer()" ng-show="isRunning"> Pause</a>
+            <a id="add5Button" class="btn btn-info btn-xs" ng-click="add5mins()"> +5</a>
+          </div>
         </div>
-        <div class="bg-primary">
-          <span class="bg-info">{{sseconds}}</span>
-          <div>S</div>
-        </div>
-      </div>
-      <div class="panel-footer">
-        <div class="text-center">
-          <a id="resetButton" class="btn btn-warning" ng-click="resetTimer()"> Reset</a>
-          <a id="startButton" class="btn btn-primary" ng-click="startTimer()" ng-hide="isRunning"> Start</a>
-          <a id="stopButton" class="btn btn-danger" ng-click="stopTimer()" ng-show="isRunning"> Pause</a>
-          <a id="add5Button" class="btn btn-info btn-xs" ng-click="add5mins()"> +5</a>
-        </div>
-      </div>
       </timer>

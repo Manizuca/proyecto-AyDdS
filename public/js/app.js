@@ -24,7 +24,7 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
 
     $scope.add5mins = function () {
         $scope.$broadcast('timer-add-seconds', 300);
-        if ($scope.timerColor.color == 'end') {
+        if ($scope.timerColor == 'end-timer') {
             $scope.startTimer();
         }
     };
@@ -46,7 +46,7 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
     };
 
     $scope.$on('timer-stopped', function (event, data) {
-        $scope.timerColor.color = 'end';
+        $scope.timerColor = 'end-timer';
     });
 
     var unregister =  $scope.$watch('hhours', function() {
