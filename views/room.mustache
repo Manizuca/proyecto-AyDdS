@@ -148,9 +148,10 @@
       </div>
       <div class="panel-footer">
         <div class="text-center">
-          <a id="restartButton" class="btn btn-warning" ng-click="resetTimer()"> Reset</a>
-          <a id="startButton" class="btn btn-primary" ng-click="startTimer(3)" ng-hide="timerRunning"> Start</a>
+          <a id="resetButton" class="btn btn-warning" ng-click="resetTimer()"> Reset</a>
+          <a id="startButton" class="btn btn-primary" ng-click="startTimer()" ng-hide="timerRunning"> Start</a>
           <a id="stopButton" class="btn btn-danger" ng-click="stopTimer()" ng-show="timerRunning"> Pause</a>
+          <a id="add5Button" class="btn btn-info btn-xs" ng-click="add5mins()"> +5</a>
         </div>
       </div>
       </timer>
