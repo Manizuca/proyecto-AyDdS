@@ -2,10 +2,9 @@
 // Copyright (c) 2013 Siddique Hameed
 // License: MIT
 angular.module('timer', [])
-    .directive('timer', ['$compile', function ($compile) {
+    .directive('timer', [ function () {
     return {
-        controller: ['$scope', '$element', '$timeout', function ($scope, $element, $timeout) {
-            $element.append($compile($element.contents())($scope));
+        controller: ['$scope', '$timeout', function ($scope, $timeout) {
 
             $scope.interval = 999;
             $scope.countdown = 0;
@@ -43,29 +42,24 @@ angular.module('timer', [])
                 }
             }
 
-            $scope.start = $element[0].start = function () {
+            $scope.start = function () {
                 resetTimeout();
                 tick();
                 $scope.isRunning = true;
             };
 
-            $scope.resume = $element[0].resume = function () {
+            $scope.resume = function () {
                 resetTimeout();
                 $scope.countdown += 1;
                 tick();
                 $scope.isRunning = true;
             };
 
-            $scope.stop = $element[0].stop = function () {
+            $scope.stop = function () {
                 resetTimeout();
                 $scope.$emit('timer-stopped');
                 $scope.isRunning = false;
             };
-
-            $element.bind('$destroy', function () {
-                resetTimeout();
-                $scope.isRunning = false;
-            });
 
             function calculateTimeUnits() {
                 $scope.seconds = Math.floor($scope.countdown % 60);
@@ -78,12 +72,9 @@ angular.module('timer', [])
                 $scope.hhours = $scope.hours < 10 ? '0' + $scope.hours : $scope.hours;
             }
 
-            $scope.addSeconds = $element[0].addSeconds = function (extraSeconds) {
+            $scope.addSeconds = function (extraSeconds) {
                 $scope.countdown += extraSeconds;
                 $scope.$digest();
-                if (!$scope.isRunning) {
-                    $scope.start();
-                }
             };
 
             $scope.$on('timer-add-seconds', function (e, extraSeconds) {
