@@ -41,12 +41,14 @@
         </div>
       </nav>
 
-      <% #message %>
-      <!-- show any messages that come back with flash -->
-      <div class="alert alert-danger" role="alert">
-        <strong>Error!</strong> <% message %>.
+      <div class="col-sm-6 col-sm-offset-3">
+        <% #message %>
+        <!-- show any messages that come back with flash -->
+        <div class="alert alert-danger" role="alert">
+          <strong>Error!</strong> <% message %>.
+        </div>
+        <% /message %>
       </div>
-      <% /message %>
 
 <%{ yield }%>
 
