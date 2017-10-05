@@ -12,6 +12,7 @@
               <th>Escenario</th>
               <th>Nombre</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -21,6 +22,32 @@
                 <div>ESCENARIO 1</div>
               </td>
               <td><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#par1">Desplegar Escenario</button></td>
+              <td>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeName">Cambiar nombre</button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="changeName" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Cambiar nombre</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label for="recipient-name" class="control-label">Nomre:</label>
+                          <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">Guardar</button>
+                      </div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div>
+              </td>
             </tr>
 
             <tr><td colspan="3" class="no_padding">
