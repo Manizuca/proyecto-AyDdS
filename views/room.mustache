@@ -19,7 +19,7 @@
             <tr>
               <th scope="row">1</th>
               <td>
-                <div>ESCENARIO 1</div>
+                <div>{{escenarios[0].name}}</div>
               </td>
               <td><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#par1">Desplegar Escenario</button></td>
               <td>
@@ -36,13 +36,12 @@
                       </div>
                       <div class="modal-body">
                         <div class="form-group">
-                          <label for="recipient-name" class="control-label">Nomre:</label>
-                          <input type="text" class="form-control" id="recipient-name">
+                          <label for="recipient-name" class="control-label">Nombre: </label>
+                          <input ng-model="escenarios[0].name" ng-model-options="{updateOn : 'change blur'}">
                         </div>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
                       </div>
                     </div><!-- /.modal-content -->
                   </div><!-- /.modal-dialog -->
@@ -50,7 +49,7 @@
               </td>
             </tr>
 
-            <tr><td colspan="3" class="no_padding">
+            <tr><td colspan="4" class="no_padding">
               <div id="par1" class="collapse" aria-expanded="false" style="height: 0px;">
 
                 <ng-form name="forms.e1">
@@ -100,9 +99,10 @@
                 <div>ESCENARIO 2</div>
               </td>
               <td><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#par2">Desplegar Escenario</button></td>
+              <td></td>
             </tr>
 
-            <tr><td colspan="3" class="no_padding">
+            <tr><td colspan="4" class="no_padding">
               <div id="par2" class="collapse" aria-expanded="false" style="height: 0px;">
 
                 <ng-form name="forms.e2">

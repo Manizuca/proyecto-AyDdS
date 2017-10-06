@@ -14,12 +14,13 @@ app.factory('homeInterceptor', function($q, $window) {
 
 app.config(['$httpProvider',function($httpProvider) {
   $httpProvider.interceptors.push('homeInterceptor');
-}]); 
+}]);
 
 app.controller('mainController', ($scope, $http, $timeout, $window, $location) => {
     default_cd = 300;
     $scope.forms = { };
     $scope.formdata = [ ];
+    $scope.escenarios = [{name: "Escenario 1"}];
     $scope.timerColor = {};
 
     $scope.add5mins = function () {
