@@ -16,18 +16,18 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
+            <tr ng-repeat-start="escenario in escenarios">
+              <th scope="row">{{$index + 1}}</th>
               <td>
-                <div>{{escenarios[0].name}}</div>
+                <div>{{escenario.title}}</div>
               </td>
-              <td><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#par1">Desplegar Escenario</button></td>
+              <td><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#par{{$index + 1}}">Desplegar Escenario</button></td>
               <td>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeName">Cambiar nombre</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeName{{$index}}">Cambiar nombre</button>
 
                 <!-- Modal -->
-                <div class="modal fade" id="changeName" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal fade" id="changeName{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -37,7 +37,7 @@
                       <div class="modal-body">
                         <div class="form-group">
                           <label for="recipient-name" class="control-label">Nombre: </label>
-                          <input ng-model="escenarios[0].name" ng-model-options="{updateOn : 'change blur'}">
+                          <input ng-model="escenario.title" ng-model-options="{updateOn : 'change blur'}">
                         </div>
                       </div>
                       <div class="modal-footer">
@@ -49,12 +49,12 @@
               </td>
             </tr>
 
-            <tr><td colspan="4" class="no_padding">
-              <div id="par1" class="collapse" aria-expanded="false" style="height: 0px;">
+            <tr ng-repeat-end><td colspan="4" class="no_padding">
+              <div id="par{{$index + 1}}" class="collapse" aria-expanded="false" style="height: 0px;">
 
-                <ng-form name="forms.e1">
+                <ng-form name="forms[$index]">
                   <div>
-                    <h2>ESCENARIO SUMMARY</h2>
+                    <h2>{{escenario.description}}</h2>
 
                     <table class="table table-hover">
                       <thead>
@@ -75,66 +75,13 @@
                       <tbody>
                         <tr>
                           <td>Tú</td>
-                          <td><input ng-model="form_data[1].d1" type="checkbox"></td>
-                          <td><input ng-model="form_data[1].d2" type="checkbox"></td>
-                          <td><input ng-model="form_data[1].d3" type="checkbox"></td>
-                          <td><input ng-model="form_data[1].d4" type="checkbox"></td>
-                          <td><input ng-model="form_data[1].d5" type="checkbox"></td>
-                          <td><input ng-model="form_data[1].d6" type="checkbox"></td>
-                          <td><input ng-model="form_data[1].d7" type="checkbox"></td>
-                        </tr>
-                      </tbody>
-                    </table>
-
-                  </div>
-                  <input class="btn btn-primary" value="Aceptar" type="submit">
-                </ng-form>
-
-              </div>
-            </td></tr>
-
-            <tr>
-              <th scope="row">2</th>
-              <td>
-                <div>ESCENARIO 2</div>
-              </td>
-              <td><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#par2">Desplegar Escenario</button></td>
-              <td></td>
-            </tr>
-
-            <tr><td colspan="4" class="no_padding">
-              <div id="par2" class="collapse" aria-expanded="false" style="height: 0px;">
-
-                <ng-form name="forms.e2">
-                  <div>
-                    <h2>ESCENARIO SUMMARY</h2>
-
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th rowspan="2" width="72">Participante</th>
-                          <th colspan="17">Decisiones</th>
-                        </tr>
-                        <tr>
-                          <th width="72">1</th>
-                          <th width="72">2</th>
-                          <th width="72">3</th>
-                          <th width="72">4</th>
-                          <th width="72">5</th>
-                          <th width="72">6</th>
-                          <th width="72">7</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Tú</td>
-                          <td><input ng-model="form_data[2].d1" type="checkbox"></td>
-                          <td><input ng-model="form_data[2].d2" type="checkbox"></td>
-                          <td><input ng-model="form_data[2].d3" type="checkbox"></td>
-                          <td><input ng-model="form_data[2].d4" type="checkbox"></td>
-                          <td><input ng-model="form_data[2].d5" type="checkbox"></td>
-                          <td><input ng-model="form_data[2].d6" type="checkbox"></td>
-                          <td><input ng-model="form_data[2].d7" type="checkbox"></td>
+                          <td><input ng-model="form_data[$index].d1" type="checkbox"></td>
+                          <td><input ng-model="form_data[$index].d2" type="checkbox"></td>
+                          <td><input ng-model="form_data[$index].d3" type="checkbox"></td>
+                          <td><input ng-model="form_data[$index].d4" type="checkbox"></td>
+                          <td><input ng-model="form_data[$index].d5" type="checkbox"></td>
+                          <td><input ng-model="form_data[$index].d6" type="checkbox"></td>
+                          <td><input ng-model="form_data[$index].d7" type="checkbox"></td>
                         </tr>
                       </tbody>
                     </table>

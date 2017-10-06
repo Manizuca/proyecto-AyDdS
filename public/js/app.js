@@ -20,7 +20,9 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
     default_cd = 300;
     $scope.forms = { };
     $scope.formdata = [ ];
-    $scope.escenarios = [{name: "Escenario 1"}];
+    $scope.escenarios = [{title: "Escenario 1", description: "SUMMARY ESCENARIO 1"},
+			{title: "Escenario 2", description: "SUMMARY ESCENARIO 2"},
+			{title: "Escenario 3", description: "SUMMARY ESCENARIO 3"}];
     $scope.timerColor = {};
 
     $scope.add5mins = function () {
