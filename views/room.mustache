@@ -2,7 +2,8 @@
       <div class="panel panel-default" style="min-width: 540px;">
 
         <div class="panel-heading">
-          <p><b>TITULO DE LA SALA</b></p>
+          <p><b>{{title}}</b></p>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeTitle">Cambiar título</button>
         </div>
         <br>
 
@@ -27,7 +28,7 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeName{{$index}}">Cambiar nombre</button>
 
                 <!-- Modal -->
-                <div class="modal fade" id="changeName{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal fade" id="changeName{{$index}}" tabindex="-1" role="dialog">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -97,6 +98,27 @@
         </table>
 
       </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="changeTitle" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Cambiar título</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="recipient-name" class="control-label">Título: </label>
+              <input ng-model="title" ng-model-options="{updateOn : 'change blur'}">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
     </div>
 
     <script type="text/javascript" src="/js/timer.js"></script>

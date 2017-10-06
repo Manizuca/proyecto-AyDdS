@@ -23,6 +23,7 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
     $scope.escenarios = [{title: "Escenario 1", description: "SUMMARY ESCENARIO 1"},
 			{title: "Escenario 2", description: "SUMMARY ESCENARIO 2"},
 			{title: "Escenario 3", description: "SUMMARY ESCENARIO 3"}];
+    $scope.title = "TITULO DE LA SALA";
     $scope.timerColor = {};
 
     $scope.add5mins = function () {
