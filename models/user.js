@@ -1,5 +1,15 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define("User", {
+    var User = sequelize.define("User", {
+        firstName: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            unique: false
+        },
+        lastName: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            unique: false
+        },
         email: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -12,6 +22,14 @@ module.exports = (sequelize, DataTypes) => {
         salt: {
             type: DataTypes.STRING,
             allowNull: false,
-        },
+        }
+    }, {
+        classMethods: {
+            associate: function(models) {
+                User.belongsToMany(models.Session, {through: 'User_Session'});
+                User.hasMany(models.Vote);
+            }
+        }
     });
+    return User;
 };
