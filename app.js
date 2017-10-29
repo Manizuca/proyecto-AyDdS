@@ -2,6 +2,7 @@ var bodyParser   = require('body-parser');
 var express      = require('express');
 var favicon      = require('serve-favicon');
 var flash        = require('connect-flash');
+var socketIO     = require('socket.io');
 var logger       = require('morgan');
 var models       = require("./models");
 var mustache     = require('mustache-express');
@@ -11,6 +12,13 @@ var routes       = require('./server/router');
 var session      = require('express-session');
 
 require('./server/config/passport')(passport, models.User); // pass passport for configuration
+
+io = socketIO();
+io.on('connection', (socket) => {
+  socket.on('chat message', (msg) => {
+    socket.broadcast.emit('chat message', msg);
+  });
+});
 
 var app = express();
 
@@ -39,8 +47,12 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 app.use(express.static('public'));
 
 //Routes
-models.sequelize.sync().then(function () {
+models.sequelize.sync().then(() => {
     routes(app, passport);
 });
+
+app.attachSocketIO = (server) => {
+    io.attach(server);
+}
 
 module.exports = app;

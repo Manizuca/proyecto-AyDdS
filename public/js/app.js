@@ -26,6 +26,7 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
     $scope.title = "TITULO DE LA SALA";
     $scope.timerColor = {};
 
+    $scope.socket = io();
     $scope.messages = [];
 
     $scope.me = {
@@ -35,7 +36,7 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
     };
 
     $scope.sendMessage = function (message) {
-        console.log('sendMessage: ', message);
+        $scope.socket.emit('chat message', message);
     };
 
     $scope.add5mins = function () {
@@ -72,4 +73,9 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
 
     $scope.messages.push({avatar: "/images/default_profile_normal.png", date: 1509271054241, id: "sc1509271054245", text: "dsa", userName: "No-Iop"});
     $scope.messages.push({avatar: "/images/default_profile_normal.png", date: 1509271054240, id: "sc1509271054241", text: "dsa", userName: "No-Iop2"});
+
+    $scope.socket.on('chat message', function(msg){
+        $scope.messages.push(msg);
+        $scope.$broadcast('simple-chat-message-posted');
+    });
 });
