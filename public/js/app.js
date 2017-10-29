@@ -1,4 +1,4 @@
-var app = angular.module('decisions', ['timer']);
+var app = angular.module('decisions', ['timer', 'angular-simple-chat']);
 app.factory('homeInterceptor', function($q, $window) {
   return  {
     'response': function(res) {
@@ -25,6 +25,18 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
 			{title: "Escenario 3", description: "SUMMARY ESCENARIO 3"}];
     $scope.title = "TITULO DE LA SALA";
     $scope.timerColor = {};
+
+    $scope.messages = [];
+
+    $scope.me = {
+        userId: 44645648,
+        avatar: "/images/default_profile_normal.png",
+        userName: 'Iop'
+    };
+
+    $scope.sendMessage = function (message) {
+        console.log('sendMessage: ', message);
+    };
 
     $scope.add5mins = function () {
         $scope.$broadcast('timer-add-seconds', 300);
@@ -57,4 +69,7 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
         unregister();
         $scope.resetTimer();
     });
+
+    $scope.messages.push({avatar: "/images/default_profile_normal.png", date: 1509271054241, id: "sc1509271054245", text: "dsa", userName: "No-Iop"});
+    $scope.messages.push({avatar: "/images/default_profile_normal.png", date: 1509271054240, id: "sc1509271054241", text: "dsa", userName: "No-Iop2"});
 });

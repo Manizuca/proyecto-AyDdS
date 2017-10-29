@@ -121,6 +121,9 @@
       </div><!-- /.modal-dialog -->
     </div>
 
+    <link rel="stylesheet" href="/stylesheets/angular-simple-chat.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="/js/angular-simple-chat.js"></script>
     <script type="text/javascript" src="/js/timer.js"></script>
     <div class="right-side">
 
@@ -151,3 +154,5 @@
           </div>
         </div>
       </timer>
+      <simple-chat messages="messages" local-user="me" send-function="sendMessage"></simple-chat>
+

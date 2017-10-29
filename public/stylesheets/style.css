@@ -13,12 +13,12 @@ ul {
 }
 textarea {
   width: 540px;
-  height: 90px;
+  height: 40px;
 }
 .right-side  {
   display: inline;
   float: right;
-  width: 256px;
+  width: 320px;
 }
 .super-timer{
   position: fixed;
