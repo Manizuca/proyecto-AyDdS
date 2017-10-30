@@ -2,13 +2,14 @@ module.exports = (sequelize, DataTypes) => {
     var Session = sequelize.define("Session", {
         uuid: {
             type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV1,
             allowNull: false,
             unique: true
         },
         titulo: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true
+            unique: false
         },
         purpose: {
             type: DataTypes.TEXT,

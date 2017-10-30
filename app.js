@@ -10,8 +10,11 @@ var passport     = require('passport');
 var path         = require('path');
 var routes       = require('./server/router');
 var session      = require('express-session');
+var rooms        = require('./server/rooms');
 
 require('./server/config/passport')(passport, models.User); // pass passport for configuration
+
+var Rooms = new rooms(models.Session);
 
 io = socketIO();
 io.on('connection', (socket) => {
