@@ -1,5 +1,5 @@
-var router = require('express').Router();
-var path = require('path');
+var router = require('express')();
+
 
 router.get('/', (req, res) => {
     res.render('index', {title: 'Placeholder Title'});

@@ -1,6 +1,7 @@
 //var apiRoutes = require('./api');
 var mainRoutes = require('./main');
 var passportRoutes = require('./passport');
+var controllerRoutes = require('../controllers/index');
 var path = require('path');
 var models = require('../models');
 models.sequelize
@@ -18,6 +19,9 @@ module.exports = function (app, passport) {
   passportRoutes(app, passport);
 
   //app.use('/api', apiRoutes);
+
+  app.use('/api', controllerRoutes);
+  
 
   // not found handler
   app.use((req, res, next) => {
