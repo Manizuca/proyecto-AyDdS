@@ -19,9 +19,9 @@ Rooms.changePurpose('5994d0b0-bdfd-11e7-b8ae-b3b071741cfd','otro proposito');
 
 io = socketIO();
 io.on('connection', (socket) => {
-  socket.on('chat message', (msg) => {
-    socket.broadcast.emit('chat message', msg);
-  });
+    socket.on('chat message', (msg) => {
+      socket.broadcast.emit('chat message', msg);
+    });
 });
 
 var app = express();
