@@ -15,6 +15,7 @@ var rooms        = require('./server/rooms');
 require('./server/config/passport')(passport, models.User); // pass passport for configuration
 
 var Rooms = new rooms(models.Session);
+Rooms.changePurpose('5994d0b0-bdfd-11e7-b8ae-b3b071741cfd','otro proposito');
 
 io = socketIO();
 io.on('connection', (socket) => {
