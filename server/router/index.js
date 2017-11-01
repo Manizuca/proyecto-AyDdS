@@ -1,14 +1,17 @@
 var apiRoutes = require('../api');
 var mainRoutes = require('./main');
 var passportRoutes = require('./passport');
+var roomRoutes = require('./rooms');
 var path = require('path');
 
-module.exports = function (app, passport) {
+module.exports = function (app, passport, rooms) {
     app.use('/', mainRoutes);
 
     passportRoutes(app, passport);
 
     app.use('/api', apiRoutes);
+
+    app.use('/rooms', roomRoutes(rooms));
 
     // not found handler
     app.use((req, res, next) => {
