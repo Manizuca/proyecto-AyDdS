@@ -37,8 +37,11 @@ module.exports = function (app, passport, rooms) {
     // production error handler
     // no stacktraces leaked to user
     app.use((err, req, res, next) => {
+        email = null;
+        if (req.isAuthenticated())
+            email = req.user.email;
         var code = err.status || 500;
         res.status(code);
-        res.render('500', { code: code, errmsg: err.message, title: "Error " + code });
+        res.render('500', { code: code, errmsg: err.message, title: "Error " + code, userEmail: email });
     });
 }

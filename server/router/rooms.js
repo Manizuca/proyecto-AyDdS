@@ -44,15 +44,17 @@ module.exports = function(rooms) {
     })});
 
     router.get('/:uuid', (req, res, next) => {
+        email = null;
         if (req.isAuthenticated()) {
             check = rooms.checkInRoom(req.params.uuid, req.user.email);
+            email = req.user.email;
         } else {
             check = rooms.checkInRoom(req.params.uuid, null, req.sessionID);
         }
 
         check.then(alreadyIn => {
             if (alreadyIn) {
-                res.render('room', {title: 'Placeholder Title'});
+                res.render('room', {title: 'Placeholder Title', userEmail: email});
             } else {
                 next();
             }

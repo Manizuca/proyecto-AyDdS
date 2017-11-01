@@ -27,7 +27,7 @@ Rooms.prototype.addParticipant = function(roomUUID, userMail, sID) {
                 if (sID && !userMail) {
                     promise = room.addUser(self.guestUser, { limit: 0, guestSID: sID });
                 } else {
-                    promise = this.userModel.findOne({ where: {email: userMail} })
+                    promise = self.userModel.findOne({ where: {email: userMail} })
                         .then(user => { return room.addUser(user); });
                 }
 

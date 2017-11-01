@@ -2,11 +2,10 @@ var router = require('express')();
 
 
 router.get('/', (req, res) => {
-    res.render('index', {title: 'Placeholder Title'});
-});
-
-router.get('/room/default', (req, res) => {
-    res.render('room', {title: 'Placeholder Title'});
+    email = null;
+    if (req.isAuthenticated())
+        email = req.user.email;
+    res.render('index', {title: 'Placeholder Title', userEmail: email});
 });
 
 router.get('/login', (req, res) => {
@@ -17,6 +16,13 @@ router.get('/login', (req, res) => {
 router.get('/signup', (req, res) => {
     // render the page and pass in any flash data if it exists
     res.render('signup', {title: 'Signup', message: req.flash('signupMessage') });
+});
+
+router.get('/logout', (req, res, next) => {
+    if (req.isAuthenticated()) {
+        req.logout();
+        res.redirect('/#!?logout');
+    } else next();
 });
 
 //Return router

@@ -30,13 +30,19 @@
           <div id="navbar-collapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
               <li><a href="/">Home</a></li>
-            </ul>
+            </ul><% ^userEmail %>
             <ul class="nav navbar-nav">
               <li><a href="/signup">Crear usuario</a></li>
             </ul>
             <ul class="nav navbar-nav">
               <li><a href="/login">Iniciar sesion</a></li>
+            </ul><% /userEmail %><% #userEmail %>
+            <ul class="nav navbar-nav">
+              <li><a href="/logout">Cerrar Sesión</a></li>
             </ul>
+            <div class="pull-right">
+              <a><% userEmail %></a>
+            </div><% /userEmail %>
           </div>
         </div>
       </nav>
