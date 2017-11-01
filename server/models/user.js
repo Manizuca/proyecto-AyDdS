@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         email: {
             type: DataTypes.STRING,
+            primaryKey: true,
             allowNull: false,
             unique: true
         },
@@ -26,7 +27,13 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         classMethods: {
             associate: function(models) {
-                User.belongsToMany(models.Session, {through: 'User_Session'});
+                User.belongsToMany(models.Session, {
+                    through: {
+                        model: models.UserSession,
+                        unique: false
+                    },
+                    foreignKey: 'UserEmail'
+                });
                 User.hasMany(models.Vote);
             }
         }

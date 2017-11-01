@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
         uuid: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV1,
+            primaryKey: true,
             allowNull: false,
             unique: true
         },
@@ -19,7 +20,13 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         classMethods: {
             associate: function(models) {
-                Session.belongsToMany(models.User, {through: 'User_Session'});
+                Session.belongsToMany(models.User, {
+                    through: {
+                        model: models.UserSession,
+                        unique: false
+                    },
+                    foreignKey: 'SessionUUID'
+                });
                 Session.hasMany(models.Scenario, {
                     onDelete: 'cascade'
                 });
