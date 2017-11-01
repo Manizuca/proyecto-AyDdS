@@ -1,7 +1,7 @@
 var app = angular.module('decisions', ['timer', 'angular-simple-chat']);
-app.factory('homeInterceptor', function($q, $window) {
+app.factory('homeInterceptor', ($q, $window) => {
   return  {
-    'response': function(res) {
+    'response': (res) => {
       if (typeof res.data == 'string' && res.data.indexOf('<a href="#">Home</a>') != -1) {
         $window.location.href = "/#!?error=denied";
         return $q.reject(res);
@@ -12,7 +12,7 @@ app.factory('homeInterceptor', function($q, $window) {
   }
 });
 
-app.config(['$httpProvider',function($httpProvider) {
+app.config(['$httpProvider',($httpProvider) => {
   $httpProvider.interceptors.push('homeInterceptor');
 }]);
 
@@ -26,6 +26,12 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
     $scope.title = "TITULO DE LA SALA";
     $scope.timerColor = {};
 
+    $scope.regexprepĺaceURL = (URL) => {
+      return URL.substring(0, URL.lastIndexOf("/")) + "/join" + URL.substring(URL.lastIndexOf("/"), URL.length);
+    }
+
+    $scope.inviteURL = $scope.regexprepĺaceURL($window.location.toString());
+
     $scope.socket = io();
     $scope.messages = [];
 
@@ -35,38 +41,38 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
         userName: 'Iop'
     };
 
-    $scope.sendMessage = function (message) {
+    $scope.sendMessage = (message) => {
         $scope.socket.emit('chat message', message);
     };
 
-    $scope.add5mins = function () {
+    $scope.add5mins = () => {
         $scope.$broadcast('timer-add-seconds', 300);
         if ($scope.timerColor == 'end-timer') {
             $scope.startTimer();
         }
     };
 
-    $scope.startTimer = function () {
+    $scope.startTimer = () => {
         $scope.$broadcast('timer-start');
         $scope.timerColor = {};
     };
 
-    $scope.resetTimer = function () {
+    $scope.resetTimer = () => {
         $scope.$broadcast('timer-stop');
         $scope.$broadcast('timer-set-countdown', default_cd);
         $scope.timerColor = {};
     };
 
-    $scope.stopTimer = function () {
+    $scope.stopTimer = () => {
         $scope.$broadcast('timer-stop');
         $scope.timerColor = {};
     };
 
-    $scope.$on('timer-stopped', function (event, data) {
+    $scope.$on('timer-stopped', (event, data) => {
         $scope.timerColor = 'end-timer';
     });
 
-    var unregister =  $scope.$watch('hhours', function() {
+    var unregister =  $scope.$watch('hhours',() => {
         unregister();
         $scope.resetTimer();
     });
@@ -74,7 +80,7 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
     $scope.messages.push({avatar: "/images/default_profile_normal.png", date: 1509271054241, id: "sc1509271054245", text: "dsa", userName: "No-Iop"});
     $scope.messages.push({avatar: "/images/default_profile_normal.png", date: 1509271054240, id: "sc1509271054241", text: "dsa", userName: "No-Iop2"});
 
-    $scope.socket.on('chat message', function(msg){
+    $scope.socket.on('chat message',(msg) => {
         $scope.messages.push(msg);
         $scope.$broadcast('simple-chat-message-posted');
     });
