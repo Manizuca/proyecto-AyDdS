@@ -12,8 +12,8 @@ module.exports = function(rooms) {
 
                 promise.then((added) => {
                     if (!added)
-                        res.redirect('/rooms/join/' + uuid);
-                    res.redirect('/rooms/' + uuid);
+                        res.redirect('/room/join/' + uuid);
+                    res.redirect('/room/' + uuid);
                 }).catch(err => { next(err); });
             }).catch(err => { next(err); });
     });
@@ -36,7 +36,7 @@ module.exports = function(rooms) {
                 promise.then((exists) => {
                     if (!exists)
                         return next();
-                    res.redirect('/rooms/' + req.params.uuid);
+                    res.redirect('/room/' + req.params.uuid);
                 }).catch(err => { next(err); });
             } else {
                 next();
@@ -52,17 +52,7 @@ module.exports = function(rooms) {
 
         check.then(alreadyIn => {
             if (alreadyIn) {
-                if (req.isAuthenticated()) {
-                    promise = rooms.addParticipant(req.params.uuid, req.user.email)
-                } else {
-                    promise = rooms.addParticipant(req.params.uuid, null, req.sessionID);
-                }
-
-                promise.then((exists) => {
-                    if (!exists)
-                        return next();
-                    res.redirect('/rooms/' + req.params.uuid);
-                }).catch(err => { next(err); });
+                res.render('room', {title: 'Placeholder Title'});
             } else {
                 next();
             }

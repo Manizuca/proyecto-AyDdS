@@ -11,7 +11,7 @@ module.exports = function (app, passport, rooms) {
 
     app.use('/api', apiRoutes);
 
-    app.use('/rooms', roomRoutes(rooms));
+    app.use('/room', roomRoutes(rooms));
 
     // not found handler
     app.use((req, res, next) => {
