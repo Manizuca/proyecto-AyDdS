@@ -70,15 +70,18 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
     }
 
     dataFactory = (formdata) => {
-        var data = [];
+        var selectedDecisions = [];
         for (i = 0; i < formdata.$$controls.length; i++) {
-            data.push(formdata.$$controls[i].$viewValue);
+            if (formdata.$$controls[i].$viewValue) {
+                selectedDecisions.push($scope.decisions[i]);
+            }
         }
-        return data;
+        return selectedDecisions;
     }
 
     //submit votes
     $scope.submitVote = (scenarioIndex) => {
+        console.log("selectedDecisions: ", dataFactory($scope.forms[scenarioIndex]));
         $http.post(baseURL + 'vote', dataFactory($scope.forms[scenarioIndex]))
             .then(function (response) {
                 $scope.escenarios = response.data;
