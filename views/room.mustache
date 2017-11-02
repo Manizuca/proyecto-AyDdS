@@ -65,31 +65,19 @@
                           <th colspan="17">Decisiones</th>
                         </tr>
                         <tr>
-                          <th width="72">1</th>
-                          <th width="72">2</th>
-                          <th width="72">3</th>
-                          <th width="72">4</th>
-                          <th width="72">5</th>
-                          <th width="72">6</th>
-                          <th width="72">7</th>
+                          <th ng-repeat="decision in decisions">{{ decision.name }} <br> {{ decision.mecanism }} </th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>Tú</td>
-                          <td><input ng-model="form_data[$index].d1" type="checkbox"></td>
-                          <td><input ng-model="form_data[$index].d2" type="checkbox"></td>
-                          <td><input ng-model="form_data[$index].d3" type="checkbox"></td>
-                          <td><input ng-model="form_data[$index].d4" type="checkbox"></td>
-                          <td><input ng-model="form_data[$index].d5" type="checkbox"></td>
-                          <td><input ng-model="form_data[$index].d6" type="checkbox"></td>
-                          <td><input ng-model="form_data[$index].d7" type="checkbox"></td>
+                          <td>Tú</td> 
+                          <td ng-repeat="decision in decisions"><input ng-model="form_data[$parent.$index][$index]" type="checkbox"></td>
                         </tr>
                       </tbody>
                     </table>
 
                   </div>
-                  <input class="btn btn-primary" value="Aceptar" type="submit">
+                  <button class="btn btn-primary" ng-click="submitVote($index)" type="submit">Aceptar</input> 
                 </ng-form>
 
               </div>
