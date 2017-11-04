@@ -4,8 +4,10 @@
         <div class="panel-heading">
           <p><b>{{title}}</b></p>
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeTitle">Cambiar título</button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addObjetive">Agregar Objetivo</button>
           <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#invite">Invitar participante</button>
           <li ng-repeat="objetive in objetives">{{ objetive }}</li>
+          <button type="button" class="btn btn-primary center-block" data-toggle="modal" data-target="#newScene">Agregar Escenario</button>
         </div>
         <br>
 
@@ -78,7 +80,7 @@
                     </table>
 
                   </div>
--                  <button class="btn btn-primary" ng-click="submitVote($index)" type="submit">Aceptar</input> 
+-                  <button class="btn btn-primary" ng-click="submitVote($index)" type="submit" data-target="#par{{$index + 1}}" data-toggle="collapse">Aceptar</input> 
                 </ng-form>
 
               </div>
@@ -124,6 +126,56 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addObjetive" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Agregar Objetivo</h4>
+          </div>
+          <div class="modal-body">
+            <form name="newObjetiveForm">
+              <div class="form-group">
+                <label for="recipient-name" class="control-label">Objetivo:</label>
+                <input type="text" class="form-control" ng-model="newObjetiveName" required>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addObjetive()" ng-disabled="newObjetiveForm.$invalid">OK</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="newScene" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Agregar Escenario</h4>
+          </div>
+          <div class="modal-body">
+            <form name="newSceneForm">
+              <div class="form-group">
+                <label for="recipient-name" class="control-label">Nombre:</label>
+                <input type="text" class="form-control" ng-model="newSceneTitle" required>
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="control-label">Descripción:</label>
+                <textarea class="form-control" ng-model="newSceneDesc" required></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addNewScene()" ng-disabled="newSceneForm.$invalid">OK</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
