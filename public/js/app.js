@@ -30,6 +30,16 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
 
     $scope.objetives = ["Objetive 1","Objetive 2","Objetive 3"];
 
+    //add Objetive
+    $scope.addObjetive = () => {
+        $scope.objetives.push($scope.newObjetiveName);
+    }
+
+    //add Scenario
+    $scope.addNewScene = () => {
+        $scope.escenarios.push({ title: $scope.newSceneTitle, description: $scope.newSceneDesc });
+    }
+
     //get Scenarios
     getAllScenarios = () => {
         if (test) {
