@@ -28,6 +28,8 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
     $scope.title = "TITULO DE LA SALA";
     $scope.timerColor = {};
 
+    $scope.objetives = ["Objetive 1","Objetive 2","Objetive 3"];
+
     //get Scenarios
     getAllScenarios = () => {
         if (test) {
@@ -95,11 +97,11 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
     getAllScenarios();
     getDecisions();
 
-    $scope.regexprepĺaceURL = (URL) => {
+    $scope.regexpreplaceURL = (URL) => {
         return URL.substring(0, URL.lastIndexOf("/")) + "/join" + URL.substring(URL.lastIndexOf("/"), URL.length);
     }
 
-    $scope.inviteURL = $scope.regexprepĺaceURL($window.location.toString());
+    $scope.inviteURL = $scope.regexpreplaceURL($window.location.toString());
 
     $scope.socket = io();
     $scope.messages = [];
@@ -107,7 +109,7 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
     $scope.me = {
         userId: 44645648,
         avatar: "/images/default_profile_normal.png",
-        userName: 'Iop'
+        userName: 'Yo'
     };
 
     $scope.sendMessage = (message) => {
@@ -146,8 +148,8 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
         $scope.resetTimer();
     });
 
-    $scope.messages.push({ avatar: "/images/default_profile_normal.png", date: 1509271054241, id: "sc1509271054245", text: "dsa", userName: "No-Iop" });
-    $scope.messages.push({ avatar: "/images/default_profile_normal.png", date: 1509271054240, id: "sc1509271054241", text: "dsa", userName: "No-Iop2" });
+    $scope.messages.push({ avatar: "/images/default_profile_normal.png", date: 1509271054241, id: "sc1509271054245", text: "Hola", userName: "Juanito" });
+    $scope.messages.push({ avatar: "/images/default_profile_normal.png", date: 1509271054240, id: "sc1509271054241", text: "Chao", userName: "María" });
 
     $scope.socket.on('chat message', (msg) => {
         $scope.messages.push(msg);
