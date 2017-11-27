@@ -14,10 +14,39 @@ var rooms        = require('./server/rooms');
 
 require('./server/config/passport')(passport, models.User); // pass passport for configuration
 
-io = socketIO();
+var sessionMiddleware = session({
+    resave: false,
+    saveUninitialized: true,
+    secret: 'est4cl4v3muyd1f1c1l3s123' // session secret
+});
+
+var io = socketIO();
+
+io.use((socket, next) => {
+    sessionMiddleware(socket.request, socket.request.res, next);
+});
+
 io.on('connection', (socket) => {
     socket.on('chat message', (msg) => {
+        msg.userId = 1;
+        if (socket.request.session.passport) {
+            msg.userName = socket.request.session.passport.user;
+        } else {
+            msg.userName = 'Invitado';
+        }
         socket.broadcast.emit('chat message', msg);
+    });
+    socket.on('timer-add-seconds', (time) => {
+        socket.broadcast.emit('timer-add-seconds', time);
+    });
+    socket.on('timer-start', () => {
+        socket.broadcast.emit('timer-start');
+    });
+    socket.on('timer-reset', (default_cd) => {
+        socket.broadcast.emit('timer-reset', default_cd);
+    });
+    socket.on('timer-stop', () => {
+        socket.broadcast.emit('timer-stop');
     });
 });
 
@@ -35,11 +64,7 @@ app.set("layout", path.join(__dirname, 'views', 'layout'));
 app.engine('mustache', mustache());
 
 // required for passport
-app.use(session({
-    resave: false,
-    saveUninitialized: true,
-    secret: 'est4cl4v3muyd1f1c1l3s123' // session secret
-}));
+app.use(sessionMiddleware);
 
 //CHANGE SESSION STORE FOR PRODUCTION
 app.use(passport.initialize());

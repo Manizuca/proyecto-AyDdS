@@ -117,7 +117,7 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
     $scope.messages = [];
 
     $scope.me = {
-        userId: 44645648,
+        userId: 0,
         avatar: "/images/default_profile_normal.png",
         userName: 'Yo'
     };
@@ -127,6 +127,7 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
     };
 
     $scope.add5mins = () => {
+        $scope.socket.emit('timer-add-seconds', 300);
         $scope.$broadcast('timer-add-seconds', 300);
         if ($scope.timerColor == 'end-timer') {
             $scope.startTimer();
@@ -134,17 +135,20 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
     };
 
     $scope.startTimer = () => {
+        $scope.socket.emit('timer-start');
         $scope.$broadcast('timer-start');
         $scope.timerColor = {};
     };
 
     $scope.resetTimer = () => {
+        $scope.socket.emit('timer-reset', default_cd);
         $scope.$broadcast('timer-stop');
         $scope.$broadcast('timer-set-countdown', default_cd);
         $scope.timerColor = {};
     };
 
     $scope.stopTimer = () => {
+        $scope.socket.emit('timer-stop');
         $scope.$broadcast('timer-stop');
         $scope.timerColor = {};
     };
@@ -164,5 +168,28 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
     $scope.socket.on('chat message', (msg) => {
         $scope.messages.push(msg);
         $scope.$broadcast('simple-chat-message-posted');
+    });
+
+    $scope.socket.on('timer-add-seconds', (time) => {
+        $scope.$broadcast('timer-add-seconds', 300);
+        if ($scope.timerColor == 'end-timer') {
+            $scope.startTimer();
+        }
+    });
+
+    $scope.socket.on('timer-start', () => {
+        $scope.$broadcast('timer-start');
+        $scope.timerColor = {};
+    });
+
+    $scope.socket.on('timer-reset', (default_cd) => {
+        $scope.$broadcast('timer-stop');
+        $scope.$broadcast('timer-set-countdown', default_cd);
+        $scope.timerColor = {};
+    });
+
+    $scope.socket.on('timer-stop', () => {
+        $scope.$broadcast('timer-stop');
+        $scope.timerColor = {};
     });
 });
