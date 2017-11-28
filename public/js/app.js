@@ -83,8 +83,8 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
     dataFactory = (formdata) => {
         var selectedDecisions = [];
         for (i = 0; i < formdata.$$controls.length; i++) {
-            if (formdata.$$controls[i].$viewValue) {
-                selectedDecisions.push($scope.decisions[i]);
+            if (formdata.$$controls[i].$viewValue != 0) {
+                selectedDecisions.push({id: $scope.decisions[i].id, p: formdata.$$controls[i].$viewValue});
             }
         }
         return selectedDecisions;
