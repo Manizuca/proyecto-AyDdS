@@ -52,9 +52,27 @@ module.exports = function(rooms) {
             check = rooms.checkInRoom(req.params.uuid, null, req.sessionID);
         }
 
-        check.then(alreadyIn => {
-            if (alreadyIn) {
+        check.then(isParticipant => {
+            if (isParticipant) {
                 res.render('room', {title: 'Placeholder Title', userEmail: email});
+            } else {
+                next();
+            }
+    })});
+
+    router.post('/:uuid/scene/new', (req, res, next) => {
+        if (req.isAuthenticated()) {
+            /* TODO: Actually, the user must be the moderator */
+            check = rooms.checkInRoom(req.params.uuid, req.user.email);
+        } else {
+            check = rooms.checkInRoom(req.params.uuid, null, req.sessionID);
+        }
+
+        check.then(isParticipant => {
+            if (isParticipant) {
+                rooms.addScene(req.params.uuid, req.body.title, req.body.description)
+                    .then(scene => { res.json(scene) } )
+                    .catch(err => { next(err); });
             } else {
                 next();
             }

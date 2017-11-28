@@ -1,7 +1,10 @@
 function Rooms(models) {
     this.roomModel = models.Session;
     this.userModel = models.User;
+    this.voteModel = models.Vote;
+    this.sceneModel = models.Scenario;
     this.userSessionModel = models.UserSession;
+    this.Sequelize = models.sequelize;
 
     var self = this;
     this.userModel.findOrCreate({where: {email: 'guest'}, defaults: {hash: 'a7534c82ecbb2e2c3b8ade1a67d106fc289a23974559899effd571d85c082ed3', salt: '4dSBRfVXVA'}})
@@ -9,9 +12,9 @@ function Rooms(models) {
 };
 
 Rooms.prototype.createRoom = function() {
-    var self = this;
+    var roomModel = this.roomModel;
     return new Promise(function(resolve, reject) {
-        self.roomModel.create({ titulo: 'TITULO', purpose: 'DESCRIPCION'})
+        roomModel.create({ titulo: 'TITULO', purpose: 'DESCRIPCION'})
             .then(room => { resolve(room.uuid); })
             .catch(err => { reject(err); });
 })};
@@ -42,7 +45,7 @@ Rooms.prototype.checkInRoom = function(roomUUID, userMail, sID) {
     } else {
         promise = this.userSessionModel.findOne({ where: {UserEmail: userMail, SessionUUID: roomUUID} });
     }
-    
+
     return new Promise(function(resolve, reject) {
         promise.then(userSession => {
             if (userSession) {
@@ -51,12 +54,24 @@ Rooms.prototype.checkInRoom = function(roomUUID, userMail, sID) {
                 resolve(false);
             }
     })});
+};
 
+Rooms.prototype.getScenes = function(roomUUID) {
+    promise = this.sceneModel.findAll({ where: {SessionUuid: roomUUID} });
+
+    return new Promise(function(resolve, reject) {
+        promise.then(scenes => {
+            if (scenes) {
+                resolve(scenes);
+            } else {
+                resolve([]);
+            }
+    })});
 };
 
 Rooms.prototype.addScenario = function(roomUUID) {};
 
-Rooms.prototype.deleteScenario = function(roomUUID, scenarioUUID) {};
+Rooms.prototype.deleteScene = function(roomUUID, scene) {};
 
 Rooms.prototype.changeTitle = function(roomUUID, title) {
     this.roomModel.update({titulo: title}, { where: { uuid: roomUUID } })
