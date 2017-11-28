@@ -40,7 +40,9 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
 
     //add Scenario
     $scope.addNewScene = () => {
-        $scope.escenarios.push({ title: $scope.newSceneTitle, description: $scope.newSceneDesc });
+        $http.post(URL + "/scene/new", {title: $scope.newSceneTitle, description: $scope.newSceneDesc })
+            .then((response) => { $scope.escenarios.push(response.data); })
+            .catch((error) => { console.log(error.statusText); });
     }
 
     //get Scenarios
