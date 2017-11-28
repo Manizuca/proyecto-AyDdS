@@ -69,7 +69,22 @@ Rooms.prototype.getScenes = function(roomUUID) {
     })});
 };
 
-Rooms.prototype.addScenario = function(roomUUID) {};
+Rooms.prototype.addScene = function(roomUUID, title, description) {
+    promise = this.roomModel.findOne({ where: {uuid: roomUUID} });
+
+    return new Promise(function(resolve, reject) {
+        promise.then(room => {
+                if (!room)
+                    reject();
+
+                promise = room.createScenario({ title: title, description: description });
+
+                return promise
+                    .then((scene) => { resolve(scene); })
+                    .catch(err => { reject(err); });
+            }).catch(err => { reject(err); });
+    })
+};
 
 Rooms.prototype.deleteScene = function(roomUUID, scene) {};
 
@@ -82,5 +97,24 @@ Rooms.prototype.changePurpose = function(roomUUID, purpose) {
     this.roomModel.update({purpose: purpose}, { where: { uuid: roomUUID } })
         .then(() => {})
 };
+
+Rooms.prototype.vote = function(roomUUID, scene, votes, email, sID) {
+    if (sID && !email)
+        email ='guest';
+
+    var voteModel = this.voteModel;
+    sequelize = this.Sequelize;
+    return new Promise(function(resolve, reject) {
+        sequelize.transaction(function (t) {
+            var promises = []
+            for (var i = 0; i < votes.length; i++) {
+                var promise = voteModel.create({ UserEmail: email, guestSID: sID, SceneId: scene,
+                                    DecisionId: votes[i].id, priority: votes[i].p}, {transaction: t});
+                promises.push(promise);
+            };
+            return sequelize.Promise.all(promises);
+        }).then(result => { resolve(result); })
+        .catch(err => { reject(err); });
+})};
 
 module.exports = Rooms;

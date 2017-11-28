@@ -78,5 +78,41 @@ module.exports = function(rooms) {
             }
     })});
 
+    router.get('/:uuid/scenes', (req, res, next) => {
+        if (req.isAuthenticated()) {
+            check = rooms.checkInRoom(req.params.uuid, req.user.email);
+        } else {
+            check = rooms.checkInRoom(req.params.uuid, null, req.sessionID);
+        }
+
+        check.then(isParticipant => {
+            if (isParticipant) {
+                rooms.getScenes(req.params.uuid)
+                    .then(scenes => { res.json(scenes) } )
+                    .catch(err => { next(err); });
+            } else {
+                next();
+            }
+    })});
+
+    router.post('/:uuid/scene/:id/vote', (req, res, next) => {
+        if (req.isAuthenticated()) {
+            mail = req.user.email;
+            sID = null;
+        } else {
+            mail = null;
+            sID = req.sessionID;
+        }
+        check = rooms.checkInRoom(req.params.uuid, mail, sID);
+        check.then(isParticipant => {
+            if (isParticipant) {
+                rooms.vote(req.params.uuid, req.params.id, req.body, mail, sID)
+                    .then(votes => { res.json(votes) } )
+                    .catch(err => { next(err); });
+            } else {
+                next();
+            }
+    })});
+
     return router;
 }
