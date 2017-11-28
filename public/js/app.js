@@ -17,9 +17,10 @@ app.config(['$httpProvider', ($httpProvider) => {
 }]);
 
 app.controller('mainController', ($scope, $http, $timeout, $window, $location) => {
-    var baseURL = "http://localhost:3000/api/";
     //change to false to replace hardcoded data with requests
-    var test = true;
+    var test = false;
+
+    URL = $window.location.toString().replace(/\/$/, "");
 
     default_cd = 300;
     $scope.forms = {};
@@ -28,7 +29,9 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
     $scope.title = "TITULO DE LA SALA";
     $scope.timerColor = {};
 
-    $scope.objetives = ["Objetive 1","Objetive 2","Objetive 3"];
+    $scope.objetives = ["Objetive 1", "Objetive 2", "Objetive 3"];
+    $scope.escenarios = [];
+    $scope.decisions = [];
 
     //add Objetive
     $scope.addObjetive = () => {
@@ -47,18 +50,16 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
             { title: "Escenario 2", description: "SUMMARY ESCENARIO 2" },
             { title: "Escenario 3", description: "SUMMARY ESCENARIO 3" }];
         } else {
-            $http.get(baseURL + 'scenarios')
+            $http.get(URL + "/scenes")
                 .then(function (response) {
                     $scope.escenarios = response.data;
-                    console.log("GET scenarios successful with response: ", response);
-                },
-                function (error) {
-                    console.log('Error getting scenarios \n' + response.json());
+                }).catch((error) => {
+                    console.log('Error getting scenes \n' + error.statusText);
                 });
         }
     }
 
-    //getDecisions
+    //get Decisions
     getDecisions = () => {
         if (test) {
             $scope.decisions = [{ name: "decision1", mecanism: "mecanism1", result: "result1" },
@@ -69,13 +70,11 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
             { name: "decision6", mecanism: "mecanism6", result: "result6" },
             { name: "decision7", mecanism: "mecanism7", result: "result7" }];
         } else {
-            $http.get(baseURL + 'decisions')
+            $http.get('/api/decisions')
                 .then(function (response) {
                     $scope.decisions = response.data;
-                    console.log("GET decisions successful with response: ", response);
-                },
-                function (error) {
-                    console.log('Error getting scenarios \n' + response.json());
+                }).catch((error) => {
+                    console.log('Error getting decisions \n' + error.statusText);
                 });
         }
 
@@ -92,26 +91,24 @@ app.controller('mainController', ($scope, $http, $timeout, $window, $location) =
     }
 
     //submit votes
-    $scope.submitVote = (scenarioIndex) => {
-        console.log("selectedDecisions: ", dataFactory($scope.forms[scenarioIndex]));
-        $http.post(baseURL + 'vote', dataFactory($scope.forms[scenarioIndex]))
+    $scope.submitVote = (sceneIndex) => {
+        $http.post(URL + "/scene/" + sceneIndex + "/vote", dataFactory($scope.forms[sceneIndex]))
             .then(function (response) {
-                $scope.escenarios = response.data;
-                console.log("POST Votes successful with response: ", response);
-            },
-            function (error) {
-                console.log('Error posting votes \n' + response.json());
+                console.log(response);
+            }).catch((error) => {
+                console.log('Error posting votes \n' + error.statusText);
+                console.log(error);
             });
     }
 
     getAllScenarios();
     getDecisions();
 
-    $scope.regexpreplaceURL = (URL) => {
-        return URL.substring(0, URL.lastIndexOf("/")) + "/join" + URL.substring(URL.lastIndexOf("/"), URL.length);
+    $scope.regexpreplaceURL = (url) => {
+        return url.substring(0, url.lastIndexOf("/")) + "/join" + url.substring(url.lastIndexOf("/"), url.length);
     }
 
-    $scope.inviteURL = $scope.regexpreplaceURL($window.location.toString());
+    $scope.inviteURL = $scope.regexpreplaceURL(URL);
 
     $scope.socket = io();
     $scope.messages = [];
