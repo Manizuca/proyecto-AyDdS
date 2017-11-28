@@ -74,7 +74,12 @@
                       <tbody>
                         <tr>
                           <td>Tú</td>
--                         <td ng-repeat="decision in decisions"><input ng-model="form_data[$parent.escenario.id][$index]" type="checkbox"></td>
+-                         <td ng-repeat="decision in decisions"><select ng-model="form_data[$parent.escenario.id][$index]" ng-init="form_data[$parent.escenario.id][$index]='0'">
+                              <option value="0">Sin seleccionar</option>
+                              <option value="1">Baja</option>
+                              <option value="2">Media</option>
+                              <option value="3">Alta</option>
+                            </select></td>
                         </tr>
                       </tbody>
                     </table>
