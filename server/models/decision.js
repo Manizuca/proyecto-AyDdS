@@ -18,7 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         classMethods: {
             associate: function(models) {
-                Decision.hasMany(models.Vote);  
+                Decision.hasMany(models.Vote, {
+                    foreignKey: 'DecisionId',
+                });
             }
         }
     });

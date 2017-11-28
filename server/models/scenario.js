@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
         classMethods: {
             associate: function(models) {
                 Scenario.belongsTo(models.Session);
-                Scenario.hasMany(models.Vote);
+                Scenario.hasMany(models.Vote, {
+                    foreignKey: 'SceneId',
+                    onDelete: 'cascade'
+                });
             }
         }
     });
